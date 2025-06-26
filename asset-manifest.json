@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/maneesha/static/css/main.ad4bbdcc.css",
-    "main.js": "/maneesha/static/js/main.de4302cf.js",
+    "main.js": "/maneesha/static/js/main.3164f027.js",
     "static/js/453.70740f7d.chunk.js": "/maneesha/static/js/453.70740f7d.chunk.js",
     "index.html": "/maneesha/index.html",
     "main.ad4bbdcc.css.map": "/maneesha/static/css/main.ad4bbdcc.css.map",
-    "main.de4302cf.js.map": "/maneesha/static/js/main.de4302cf.js.map",
+    "main.3164f027.js.map": "/maneesha/static/js/main.3164f027.js.map",
     "453.70740f7d.chunk.js.map": "/maneesha/static/js/453.70740f7d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ad4bbdcc.css",
-    "static/js/main.de4302cf.js"
+    "static/js/main.3164f027.js"
   ]
 }
