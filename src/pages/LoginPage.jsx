@@ -12,20 +12,19 @@ function LoginPage() {
   const [toastMessage, setToastMessage] = useState('');
   const [toastVariant, setToastVariant] = useState('');
 
-  // Dummy Users
   const dummyUsers = [
     { email: 'maneeshayenugula10@gmail.com', password: 'maneesha' },
     { email: 'googleuser@gmail.com', password: 'google123' },
   ];
 
-  // Toast style with colored line
   const getToastStyle = () => {
     const base = {
-      position: 'absolute',
+      position: 'fixed',
       top: 20,
       right: 20,
       borderLeft: '5px solid',
       paddingLeft: '10px',
+      zIndex: 9999,
       minWidth: '250px',
     };
     switch (toastVariant) {
@@ -40,14 +39,17 @@ function LoginPage() {
     }
   };
 
-  // Login Handler
+  const showToastMsg = (message, variant) => {
+    setToastMessage(message);
+    setToastVariant(variant);
+    setShowToast(true);
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
 
     if (!email || !password) {
-      setToastMessage('Please fill all fields');
-      setToastVariant('warning');
-      setShowToast(true);
+      showToastMsg('Please fill in all fields', 'warning');
       return;
     }
 
@@ -56,41 +58,29 @@ function LoginPage() {
     );
 
     if (user) {
-      setToastMessage('Login Successful');
-      setToastVariant('success');
-      setShowToast(true);
-      setTimeout(() => navigate('/dashboard'), 1000);
+      showToastMsg('Login successful!', 'success');
+      setTimeout(() => navigate('/home'), 1000);
     } else {
-      setToastMessage('Invalid email or password');
-      setToastVariant('danger');
-      setShowToast(true);
+      showToastMsg('Invalid email or password', 'danger');
     }
   };
 
-  // Google Sign-In
   const handleGoogleLogin = () => {
     setEmail('googleuser@gmail.com');
     setPassword('google123');
-    setToastMessage('Google Sign-In successful');
-    setToastVariant('success');
-    setShowToast(true);
-    setTimeout(() => navigate('/dashboard'), 1000);
+    showToastMsg('Google sign-in successful!', 'success');
+    setTimeout(() => navigate('/home'), 1000);
   };
 
-  // Signup Handler
   const handleSignup = (e) => {
     e.preventDefault();
 
     if (!email || !password) {
-      setToastMessage('Please fill all fields');
-      setToastVariant('warning');
-      setShowToast(true);
+      showToastMsg('Please fill in all fields', 'warning');
       return;
     }
 
-    setToastMessage('Account created successfully (mock)');
-    setToastVariant('success');
-    setShowToast(true);
+    showToastMsg('Account created successfully (mock)', 'success');
     setIsSignUp(false);
     setEmail('');
     setPassword('');
@@ -103,32 +93,32 @@ function LoginPage() {
         className="border p-4 shadow rounded bg-white"
         style={{ maxWidth: '400px', width: '100%' }}
       >
-        <h3 className="text-center mb-4">
+        <h3 className="text-center mb-4 text-primary">
           {isSignUp ? 'Create Account' : 'Welcome to Schoolzoe'}
         </h3>
 
         <Form.Group controlId="email" className="mb-3">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter email"
+            placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>
 
-        <Form.Group controlId="password" className="mb-3">
+        <Form.Group controlId="password" className="mb-4">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Enter password"
+            placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
 
         <Button type="submit" variant="primary" className="w-100 mb-2">
-          {isSignUp ? 'Create Account' : 'Login'}
+          {isSignUp ? 'Sign Up' : 'Login'}
         </Button>
 
         {!isSignUp && (
@@ -148,9 +138,7 @@ function LoginPage() {
               <span>Already have an account? </span>
               <span
                 style={{ color: 'blue', cursor: 'pointer' }}
-                onClick={() => {
-                  setIsSignUp(false);
-                }}
+                onClick={() => setIsSignUp(false)}
               >
                 Login
               </span>
@@ -160,9 +148,7 @@ function LoginPage() {
               <span>Don't have an account? </span>
               <span
                 style={{ color: 'blue', cursor: 'pointer' }}
-                onClick={() => {
-                  setIsSignUp(true);
-                }}
+                onClick={() => setIsSignUp(true)}
               >
                 Create Account
               </span>
@@ -171,7 +157,6 @@ function LoginPage() {
         </div>
       </Form>
 
-      {/* Colored Toast */}
       <Toast
         show={showToast}
         onClose={() => setShowToast(false)}
